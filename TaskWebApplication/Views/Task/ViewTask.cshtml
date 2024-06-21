@@ -1,0 +1,58 @@
+﻿@model TaskWebApplication.Models.Task
+
+@{
+    ViewBag.Title = "ViewTask";
+}
+
+<h2>View Task</h2>
+
+<div>
+    <h4>Task</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.task_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.task_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.task_priority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task_priority)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.task_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.task_deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task_deadline)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "TaskView")
+</p>
