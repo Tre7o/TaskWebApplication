@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TaskWebApplication.Models
 {
-    public class Task
+    public class ATask
     {
         public int task_id { get; set; }
         public string task_name { get; set; }
@@ -13,11 +13,11 @@ namespace TaskWebApplication.Models
         public string task_status { get; set; }
         public DateTime task_deadline { get; set; }
 
-        public Task()
+        public ATask()
         {
         }
 
-        public Task(int task_id, string task_name, int task_priority, string task_status, DateTime task_deadline)
+        public ATask(int task_id, string task_name, int task_priority, string task_status, DateTime task_deadline)
         {
             this.task_id = task_id;
             this.task_name = task_name;
