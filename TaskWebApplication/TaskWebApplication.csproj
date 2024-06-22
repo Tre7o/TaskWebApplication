@@ -167,6 +167,8 @@
     <Compile Include="Services\Data\DB\DBContext.cs" />
     <Compile Include="Services\Data\TaskRepo.cs" />
     <Compile Include="Services\Data\TaskService.cs" />
+    <Compile Include="Services\Interfaces\IObservable.cs" />
+    <Compile Include="Services\Interfaces\IObserver.cs" />
     <Compile Include="Services\TaskQueue.cs" />
   </ItemGroup>
   <ItemGroup>

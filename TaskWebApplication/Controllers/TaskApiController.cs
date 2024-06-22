@@ -24,16 +24,6 @@ namespace TaskWebApplication.Controllers
             //return recentlyAddedTasks;
         }
 
-        // GET api/values/5
-        //public Task Get(string taskName)
-        //{
-        //    foreach (var task in recentlyAddedTasks) {
-
-        //        return task;
-        //    }
-
-        //}
-
         // to post task to queue
         // POST api/values
         [HttpPost]

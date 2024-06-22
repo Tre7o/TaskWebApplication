@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TaskWebApplication.Models;
+using TaskWebApplication.Services.Interfaces;
 
 namespace TaskWebApplication.Services
 {
-    public class TaskQueue
+    public class TaskQueue : IObservable
     {
         private static readonly Lazy<TaskQueue> instance = new Lazy<TaskQueue>(() => new TaskQueue());
 
         private static ConcurrentQueue<ATask> queue = new ConcurrentQueue<ATask>();
         private ConcurrentDictionary<string, ATask> taskDict = new ConcurrentDictionary<string, ATask>();
+
+        private List<IObserver> observers = new List<IObserver>();
 
         // Private constructor to prevent instantiation from outside
         private TaskQueue() { }
@@ -28,6 +32,7 @@ namespace TaskWebApplication.Services
         {
             task.task_status = "pending";
             queue.Enqueue(task);
+            NotifyObservers(task); // Notify observers of status change
             try
             {
                 taskDict.TryAdd(task.task_name, task);
@@ -45,6 +50,8 @@ namespace TaskWebApplication.Services
         {
             if (queue.TryDequeue(out ATask task))  // Remove task from the queue
             {
+                task.task_status = "executed";
+                NotifyObservers(task); // Notify observers of status change
                 return task;
             }
             return null;
@@ -65,6 +72,25 @@ namespace TaskWebApplication.Services
             {
                 task.task_status = status;  // Update task status
                 taskDict[taskName] = task;  // Save updated task back to dictionary
+                NotifyObservers(task); // Notify observers of status change
+            }
+        }
+
+        public void RegisterObserver(IObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void NotifyObservers(ATask task)
+        {
+            foreach (var observer in observers)
+            {
+                observer.Update(task);
             }
         }
     }
