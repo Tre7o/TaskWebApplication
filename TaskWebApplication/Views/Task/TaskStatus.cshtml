@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Task Status";
+}
+
+<h2>Task Status</h2>
+
+@if (ViewBag.TaskStatus != null)
+{
+    <p>The status of the task is: @ViewBag.TaskStatus</p>
+}
+else
+{
+    <p>Task status could not be retrieved.</p>
+}
+
+<p>
+    @Html.ActionLink("Go to List", "TasksView")
+</p>

@@ -7,6 +7,8 @@ using TaskWebApplication.Models;
 using System.ComponentModel;
 using System.Data.Common;
 using TaskWebApplication.Services.Data.DB;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TaskWebApplication.Services.Data
 {
@@ -37,9 +39,59 @@ namespace TaskWebApplication.Services.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Debug.WriteLine("From saveTasks: "+e.Message);
                 return false;
             }
         }
+
+        internal List<ATask> RetrieveTasks()
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = dbContext.GetConnection())
+                {
+
+                    sqlConnection.Open();
+                    string retrieveTasksQuery = "SELECT * FROM task";
+                    SqlCommand getTaskFromDB = new SqlCommand(retrieveTasksQuery, sqlConnection);
+
+                    List<ATask> tasks = new List<ATask>(); //store the tasks that were returned from db
+
+                    // Execute the command and retrieve the data
+                    using (SqlDataReader reader = getTaskFromDB.ExecuteReader())
+                    {
+                        // Check if there are rows returned
+                        if (reader.HasRows)
+                        {
+                            // Loop through the rows
+                            while (reader.Read())
+                            {
+
+                                ATask task = new ATask();
+                                // Access the data in each column by index or name
+                                task.task_id = reader.GetInt32(0);
+                                task.task_name = reader.GetString(1);
+                                task.task_priority = reader.GetInt32(2);
+                                task.task_deadline = reader.GetDateTime(3);
+
+                                //Add task to the list
+                                tasks.Add(task);
+
+                            }
+                        }
+                    }
+
+                  
+                    sqlConnection.Close();
+                    return tasks;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("From retrieveTasks method: "+e.Message);
+                return null;
+            }
+        }
+
     }
 }

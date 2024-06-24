@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace TaskWebApplication
@@ -26,10 +22,16 @@ namespace TaskWebApplication
             );
 
             routes.MapRoute(
-               name: "Task",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Task", action = "AddTask" }
-           );
+                name: "Task",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Task", action = "AddTask" }
+            );
+
+            //routes.MapRoute(
+            //    name: "Task",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Task", action = "TasksView" }
+            //);
 
             //routes.MapRoute(
             //    name: "Test", // name of the controller

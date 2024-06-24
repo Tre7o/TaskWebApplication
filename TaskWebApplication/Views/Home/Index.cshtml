@@ -13,9 +13,16 @@
                     <p><a class="btn btn-outline-dark" href="~/Task/AddTask">Add Task</a></p>
                 </div>
                 <div class="col-6">
-                    <p>To check the status of a task click this button</p>
-                    <p><a class="btn btn-outline-dark" href="">Check Status</a></p>
+                    <p>To check the status of a task, enter the task name and click the button below:</p>
+                    <form action="@Url.Action("CheckStatus", "Task")" method="get">
+                        <div class="form-group" style="padding-top: 15px; padding-bottom: 5px">
+                            <label for="taskName">Task Name:</label>
+                            <input type="text" class="form-control" id="taskName" name="taskName" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark">Check Status</button>
+                    </form>
                 </div>
+
             </div>
 
         </section>

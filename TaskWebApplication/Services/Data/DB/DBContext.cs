@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,13 +11,13 @@ namespace TaskWebApplication.Services.Data.DB
     {
         private static DBContext dBInstance;
         private SqlConnection sqlConnection;
-        string connectionString = "Server=SUUBIJOHNSON;Database=task_scheduler;User Id=SA;Password=#Trevknight8528;";
+        private string _connectionString;
 
         private DBContext()
         {
             try
             {
-                sqlConnection = new SqlConnection(connectionString);
+                _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
             }
             catch (Exception e)
             {
@@ -35,7 +36,7 @@ namespace TaskWebApplication.Services.Data.DB
 
         public SqlConnection GetConnection()
         {
-            return sqlConnection;
+            return new SqlConnection(_connectionString);
         }
 
     }

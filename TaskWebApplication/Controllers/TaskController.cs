@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Diagnostics;
@@ -13,6 +12,8 @@ using TaskWebApplication.Models;
 using TaskWebApplication.Services.Data;
 using TaskWebApplication.Services.Interfaces;
 using TaskWebApplication.Services;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace TaskWebApp.Controllers
 {
@@ -42,16 +43,64 @@ namespace TaskWebApp.Controllers
             return View();
         }
 
-        public ActionResult TaskView()
+        public async Task<ActionResult> TasksView()
         {
             // return a taskview.cshtml - view maps to the action method name
-            return View();
+
+            List<ATask> tasks = new List<ATask>();
+
+            using (var client = new HttpClient())
+            {        
+                // base address
+                client.BaseAddress = new Uri("https://localhost:44393/api/taskapi");
+
+                HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    tasks = JsonConvert.DeserializeObject<List<ATask>>(result);
+                    Debug.WriteLine(tasks);
+                }
+                else
+                {
+                    Debug.WriteLine("No tasks found");
+                }
+
+            }
+            return View(tasks);
         }
 
         public ActionResult AddTask()
         {
             // return a taskview.cshtml - view maps to the action method name
             return View();
+        }
+
+        public async Task<ActionResult> CheckStatus(string taskName)
+        {
+            using (var client = new HttpClient())
+            {
+                if (string.IsNullOrEmpty(taskName))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Task name cannot be null or empty");
+                }
+
+                client.BaseAddress = new Uri("https://localhost:44393/api/");
+
+                HttpResponseMessage response = await client.GetAsync($"TaskApi/status?taskName={taskName}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    string taskStatus = JsonConvert.DeserializeObject<string>(json);
+                    ViewBag.TaskStatus = taskStatus;
+                    return View("TaskStatus");
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(response.StatusCode, "Error fetching task status");
+                }
+            }
         }
 
         public ActionResult TaskResult(TaskWebApplication.Models.ATask task)

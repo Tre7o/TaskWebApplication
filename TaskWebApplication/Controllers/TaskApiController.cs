@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using TaskWebApplication.Models;
 using TaskWebApplication.Services;
 using TaskWebApplication.Services.Data;
@@ -17,11 +18,22 @@ namespace TaskWebApplication.Controllers
 
         // GET api/values?taskName=task1
         [HttpGet]
+        [Route("api/TaskApi/status")]
         public IHttpActionResult GetTaskStatus(String taskName)
         {
             String taskStatus = taskQueue.GetTaskStatus(taskName);
             return Ok(taskStatus);
             //return recentlyAddedTasks;
+        }
+
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            if (taskService.FetchTasksFromDB() != null)
+            {
+                return Ok(taskService.FetchTasksFromDB());
+            }
+            return Ok(false);
         }
 
         // to post task to queue
