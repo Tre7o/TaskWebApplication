@@ -11,6 +11,9 @@
                 <div class="col-6">
                     <p>To add a task click the button below</p>
                     <p><a class="btn btn-outline-dark" href="~/Task/AddTask">Add Task</a></p>
+                    <div>
+                        @Html.ActionLink("Go to Pending", "../Task/Pending")
+                    </div>
                 </div>
                 <div class="col-6">
                     <p>To check the status of a task, enter the task name and click the button below:</p>

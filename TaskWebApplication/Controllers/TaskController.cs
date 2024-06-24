@@ -43,6 +43,13 @@ namespace TaskWebApp.Controllers
             return View();
         }
 
+        public ActionResult Pending()
+        {
+            List<ATask> aTasks = new List<ATask>();
+            aTasks = taskQueue.GetTasksInQueue();
+            return View(aTasks);    
+        }
+
         public async Task<ActionResult> TasksView()
         {
             // return a taskview.cshtml - view maps to the action method name
