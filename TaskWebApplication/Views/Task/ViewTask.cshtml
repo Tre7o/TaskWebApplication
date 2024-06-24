@@ -1,58 +1,41 @@
-﻿@model TaskWebApplication.Models.Task
+﻿@model TaskWebApplication.Models.ATask
 
 @{
-    ViewBag.Title = "ViewTask";
+    ViewBag.Title = "View Task";
+
 }
 
-<h2>View Task</h2>
+<h2>View Tasks</h2>
 
-<div>
-    <h4>Task</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.task_id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.task_id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.task_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.task_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.task_priority)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.task_priority)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.task_status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.task_status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.task_deadline)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.task_deadline)
-        </dd>
-
-    </dl>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.task_id)</th>
+                <td>@Html.DisplayFor(model => model.task_id)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.task_name)</th>
+                <td>@Html.DisplayFor(model => model.task_name)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.task_priority)</th>
+                <td>@Html.DisplayFor(model => model.task_priority)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.task_status)</th>
+                <td>@Html.DisplayFor(model => model.task_status)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.task_deadline)</th>
+                <td>@Html.DisplayFor(model => model.task_deadline)</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "TaskView")
+    @using (Html.BeginForm("process", "api/TaskApi", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        <button type="submit" class="btn btn-primary">Process Task</button>
+    }
 </p>

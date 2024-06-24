@@ -6,19 +6,45 @@ using System.Data.SqlClient;
 using TaskWebApplication.Models;
 using System.ComponentModel;
 using System.Data.Common;
-using TaskWebApplication.Services.Data.DB;
 
 namespace TaskWebApplication.Services.Data
 {
     public class TaskRepo
     {
-        DBContext dbContext = DBContext.GetInstance();   
+        private static TaskRepo _instance;
+        public SqlConnection sqlConnection;
+        string connectionString = "Server=SUUBIJOHNSON;Database=task_scheduler;User Id=SA;Password=#Trevknight8528;";
+
+        public static TaskRepo Instance()
+        {
+                
+                    if (_instance == null)
+                    {
+                        _instance = new TaskRepo();
+                    }
+              
+            return _instance;
+        }
+
+        public bool ConnectToDB()
+        {
+            try
+            {
+                sqlConnection = new SqlConnection(connectionString);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
 
         internal bool SaveTask(ATask task)
         {
             try
             {
-                using (SqlConnection sqlConnection = dbContext.GetConnection())
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
 
                     sqlConnection.Open();
