@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using TaskWebApplication.Models;
 using TaskWebApplication.Services.Interfaces;
 
@@ -12,7 +13,7 @@ namespace TaskWebApplication.Services
         private static readonly Lazy<TaskQueue> instance = new Lazy<TaskQueue>(() => new TaskQueue());
 
         private static ConcurrentQueue<ATask> queue = new ConcurrentQueue<ATask>();
-        private ConcurrentDictionary<string, ATask> taskDict = new ConcurrentDictionary<string, ATask>();
+        private static ConcurrentDictionary<string, ATask> taskDict = new ConcurrentDictionary<string, ATask>();
 
         private List<IObserver> observers = new List<IObserver>();
 
@@ -55,6 +56,11 @@ namespace TaskWebApplication.Services
                 return task;
             }
             return null;
+        }
+
+        public List<ATask> GetTasksInQueue()
+        {
+            return queue.ToList();
         }
 
         public string GetTaskStatus(string taskName)
