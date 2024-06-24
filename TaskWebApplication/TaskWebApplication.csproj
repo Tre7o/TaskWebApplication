@@ -315,6 +315,10 @@
     <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TaskQueueLibrary\TaskQueueLibrary.csproj">
+      <Project>{a2154aab-f23e-4f4b-a3f6-192ea35a99d7}</Project>
+      <Name>TaskQueueLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskWebApplication.Models\TaskWebApplication.Models.csproj">
       <Project>{0131f0de-085b-46ac-81c7-19f15dac0efa}</Project>
       <Name>TaskWebApplication.Models</Name>

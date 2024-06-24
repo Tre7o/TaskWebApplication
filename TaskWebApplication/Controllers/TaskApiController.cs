@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.UI.WebControls;
+using TaskQueueLibrary;
 using TaskWebApplication.Models;
 using TaskWebApplication.Services;
 using TaskWebApplication.Services.Data;
@@ -15,6 +16,8 @@ namespace TaskWebApplication.Controllers
     {
         private static readonly TaskQueue taskQueue = TaskQueue.Instance;
         TaskService taskService = new TaskService();
+
+        private static readonly TaskMSQ taskMSQ = new TaskMSQ();
 
         // GET api/values?taskName=task1
         [HttpGet]
@@ -38,14 +41,21 @@ namespace TaskWebApplication.Controllers
 
         // to post task to queue
         // POST api/values
+        //[HttpPost]
+        //public IHttpActionResult Post([FromBody] ATask task)
+        //{         
+        //    if (taskQueue.Enqueue(task))
+        //    {
+        //        return Ok("Task added");
+        //    }
+        //    return BadRequest("Failed to enqueue the task");
+        //}
+
         [HttpPost]
         public IHttpActionResult Post([FromBody] ATask task)
-        {         
-            if (taskQueue.Enqueue(task))
-            {
-                return Ok("Task added");
-            }
-            return BadRequest("Failed to enqueue the task");
+        {
+            taskMSQ.SendTaskAsMessage(task);
+            return Ok("task added");
         }
 
         // to process the task from the queue to the db
