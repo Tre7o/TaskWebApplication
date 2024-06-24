@@ -22,5 +22,10 @@ namespace TaskWebApplication.Services.Data
             }
             return false;
         }
+
+        public List<ATask> FetchTasksFromDB()
+        {
+            return taskRepo.RetrieveTasks();
+        }
     }
 }

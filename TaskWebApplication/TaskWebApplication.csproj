@@ -238,8 +238,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Task\AddTask.cshtml" />
     <Content Include="Views\Task\ViewTask.cshtml" />
-    <Content Include="Views\Task\TaskView.cshtml" />
     <Content Include="Views\Task\ApiErrorView.cshtml" />
+    <Content Include="Views\Task\TasksView.cshtml" />
+    <Content Include="Views\Task\TaskStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
