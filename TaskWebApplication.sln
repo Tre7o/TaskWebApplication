@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApplication", "TaskW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApplication.Models", "TaskWebApplication.Models\TaskWebApplication.Models.csproj", "{0131F0DE-085B-46AC-81C7-19F15DAC0EFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskQueueLibrary", "TaskQueueLibrary\TaskQueueLibrary.csproj", "{A2154AAB-F23E-4F4B-A3F6-192EA35A99D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSchedulerService", "TaskSchedulerService\TaskSchedulerService.csproj", "{728870C9-77CF-4D3B-9E65-1221A28BFA54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{0131F0DE-085B-46AC-81C7-19F15DAC0EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0131F0DE-085B-46AC-81C7-19F15DAC0EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0131F0DE-085B-46AC-81C7-19F15DAC0EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2154AAB-F23E-4F4B-A3F6-192EA35A99D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2154AAB-F23E-4F4B-A3F6-192EA35A99D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2154AAB-F23E-4F4B-A3F6-192EA35A99D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2154AAB-F23E-4F4B-A3F6-192EA35A99D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728870C9-77CF-4D3B-9E65-1221A28BFA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728870C9-77CF-4D3B-9E65-1221A28BFA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728870C9-77CF-4D3B-9E65-1221A28BFA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728870C9-77CF-4D3B-9E65-1221A28BFA54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

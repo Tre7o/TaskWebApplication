@@ -1,0 +1,7 @@
+19:40 - Service started successfully
+19:40 - Checking for tasks in the queue.
+19:41 - Checking for tasks in the queue.
+19:42 - Checking for tasks in the queue.
+19:43 - Checking for tasks in the queue.
+19:44 - Checking for tasks in the queue.
+19:45 - Checking for tasks in the queue.
