@@ -10,6 +10,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using TaskQueueLibrary;
+using TaskSchedulerService.DB;
 using TaskWebApplication.Models;
 using TaskWebApplication.Services.Data.DB;
 
@@ -17,8 +18,7 @@ namespace TaskSchedulerService
 {
     public partial class ProcessTaskService : ServiceBase
     {
-
-        private DBContext dbContext = DBContext.GetInstance();
+        private ServiceRepo serviceRepo = new ServiceRepo();
         private TaskMSQ taskMSQ = new TaskMSQ();
         private Timer timer;
         private string filepath = @"E:\C-Sharp-Projects\ASP Web apps\TaskWebApplication\TaskSchedulerService\ServiceLogs.txt";
@@ -33,7 +33,8 @@ namespace TaskSchedulerService
             Log("Service started successfully");
 
             // Set up a timer to trigger the task processing every minute
-            timer = new Timer(ProcessQueue, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+            timer = new Timer(ProcessQueue, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
+
         }
 
         protected override void OnStop()
@@ -52,7 +53,7 @@ namespace TaskSchedulerService
                 if (task != null)
                 {
                     Log($"Processing task: {task.task_name}, {task.task_priority}, {task.task_deadline}");
-                    SaveTaskToDatabase(task);
+                    serviceRepo.SaveIntoDB(task);
                 }
                 else
                 {
@@ -62,31 +63,6 @@ namespace TaskSchedulerService
             catch (Exception ex)
             {
                 Log($"Error processing queue: {ex.Message}");
-            }
-        }
-
-        private void SaveTaskToDatabase(ATask task)
-        {
-            try
-            {
-                using (SqlConnection sqlConnection = dbContext.GetConnection())
-                {
-                    sqlConnection.Open();
-                    string insertTaskQuery = "INSERT INTO task(task_name, task_priority, task_deadline) VALUES(@value1, @value2, @value3)";
-                    SqlCommand addingTaskToDB = new SqlCommand(insertTaskQuery, sqlConnection);
-
-                    addingTaskToDB.Parameters.AddWithValue("@value1", task.task_name);
-                    addingTaskToDB.Parameters.AddWithValue("@value2", task.task_priority);
-                    addingTaskToDB.Parameters.AddWithValue("@value3", task.task_deadline);
-
-                    addingTaskToDB.ExecuteNonQuery();
-                    sqlConnection.Close();
-                    Log("Task added to database successfully.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Log("Error adding to db: " + ex.Message);
             }
         }
 

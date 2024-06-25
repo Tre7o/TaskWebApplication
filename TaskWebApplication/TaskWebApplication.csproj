@@ -238,6 +238,7 @@
     <Content Include="Views\Task\TasksView.cshtml" />
     <Content Include="Views\Task\TaskStatus.cshtml" />
     <Content Include="Views\Task\Pending.cshtml" />
+    <Content Include="Views\Task\NoPending.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

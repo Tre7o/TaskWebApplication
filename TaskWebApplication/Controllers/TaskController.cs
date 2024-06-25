@@ -14,18 +14,19 @@ using TaskWebApplication.Services.Interfaces;
 using TaskWebApplication.Services;
 using System.Threading.Tasks;
 using System.Net;
+using TaskQueueLibrary;
 
 namespace TaskWebApp.Controllers
 {
     // controller for creating appropriate task view
     public class TaskController : Controller, IObserver
     {
-
-        private static readonly TaskQueue taskQueue = TaskQueue.Instance;
+        // private static readonly TaskQueue taskQueue = TaskQueue.Instance;
+        private static readonly TaskMSQ taskMSQ = new TaskMSQ();
 
         public TaskController()
         {
-            taskQueue.RegisterObserver(this); // Register as observer when TaskController is created
+            // taskQueue.RegisterObserver(this); // Register as observer when TaskController is created
         }
 
         public void Update(ATask task)
@@ -43,17 +44,28 @@ namespace TaskWebApp.Controllers
             return View();
         }
 
+        // to return recently added task
         public ActionResult Pending()
         {
-            List<ATask> aTasks = new List<ATask>();
-            aTasks = taskQueue.GetTasksInQueue();
-            return View(aTasks);    
+            try
+            {
+                ATask aTask = taskMSQ.ReceiveMessageAsTask();
+                if (aTask != null)
+                {
+                    return View(aTask);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return View("NoPending");
         }
 
+        // to get all tasks from DB
         public async Task<ActionResult> TasksView()
         {
             // return a taskview.cshtml - view maps to the action method name
-
             List<ATask> tasks = new List<ATask>();
 
             using (var client = new HttpClient())
@@ -78,12 +90,14 @@ namespace TaskWebApp.Controllers
             return View(tasks);
         }
 
+        // return the view for adding tasks
         public ActionResult AddTask()
         {
             // return a taskview.cshtml - view maps to the action method name
             return View();
         }
 
+        // to return the CheckStatus view
         public async Task<ActionResult> CheckStatus(string taskName)
         {
             using (var client = new HttpClient())
@@ -110,6 +124,7 @@ namespace TaskWebApp.Controllers
             }
         }
 
+        // to trigger post request to add tasks to queue
         public ActionResult TaskResult(TaskWebApplication.Models.ATask task)
         {
             // creating an instance of HttpClient

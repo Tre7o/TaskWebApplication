@@ -1,21 +1,4 @@
-19:56 - Service started successfully
-19:56 - Checking for tasks in the queue.
-19:56 - Processing task: boil beans, 6, 21/06/2024 00:00:00
-19:56 - Error adding to db: The ConnectionString property has not been initialized.
-19:57 - TaskSchedulerService stopped.
-19:58 - Service started successfully
-19:58 - Checking for tasks in the queue.
-19:58 - Processing task: boil beans, 6, 21/06/2024 00:00:00
-19:58 - Error adding to db: The ConnectionString property has not been initialized.
-19:59 - Checking for tasks in the queue.
-20:00 - Checking for tasks in the queue.
-20:01 - Checking for tasks in the queue.
-20:02 - Checking for tasks in the queue.
-20:03 - Checking for tasks in the queue.
-20:04 - Checking for tasks in the queue.
-20:05 - Checking for tasks in the queue.
-20:06 - Checking for tasks in the queue.
-20:07 - Checking for tasks in the queue.
-20:08 - Checking for tasks in the queue.
-20:09 - Checking for tasks in the queue.
-20:10 - Checking for tasks in the queue.
+10:44 - Service started successfully
+10:44 - Checking for tasks in the queue.
+10:46 - Processing task: immunize, 5, 12/02/2024 00:00:00
+10:49 - Checking for tasks in the queue.

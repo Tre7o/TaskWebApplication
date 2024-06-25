@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using TaskWebApplication.Models;
 
 namespace TaskQueueLibrary
@@ -38,5 +34,28 @@ namespace TaskQueueLibrary
                 return (ATask)message.Body;
             }
         }
+
+        public string GetTaskStatus(string taskName)
+        {
+            using (MessageQueue messageQueue = new MessageQueue(queuePath))
+            {
+                messageQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(ATask) });
+                foreach (Message message in messageQueue.GetAllMessages())
+                {
+                    ATask retrievedTask = (ATask)message.Body;
+                    if (retrievedTask.task_name == taskName)
+                    {
+                        return "Pending";
+                    }
+                    else
+                    {
+                        return "Executed";
+                    }
+                }
+            }
+            return "No task found";
+        }
     }
 }
+
+

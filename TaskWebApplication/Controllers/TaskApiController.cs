@@ -14,17 +14,27 @@ namespace TaskWebApplication.Controllers
 {
     public class TaskApiController : ApiController
     {
-        private static readonly TaskQueue taskQueue = TaskQueue.Instance;
+        // private static readonly TaskQueue taskQueue = TaskQueue.Instance;
         TaskService taskService = new TaskService();
 
         private static readonly TaskMSQ taskMSQ = new TaskMSQ();
 
         // GET api/values?taskName=task1
+        //[HttpGet]
+        //[Route("api/TaskApi/status")]
+        //public IHttpActionResult GetTaskStatus(String taskName)
+        //{
+        //    String taskStatus = taskQueue.GetTaskStatus(taskName);
+        //    return Ok(taskStatus);
+        //    //return recentlyAddedTasks;
+        //}
+
+        // to query status of task
         [HttpGet]
         [Route("api/TaskApi/status")]
         public IHttpActionResult GetTaskStatus(String taskName)
         {
-            String taskStatus = taskQueue.GetTaskStatus(taskName);
+            String taskStatus = taskMSQ.GetTaskStatus(taskName);
             return Ok(taskStatus);
             //return recentlyAddedTasks;
         }
@@ -51,6 +61,7 @@ namespace TaskWebApplication.Controllers
         //    return BadRequest("Failed to enqueue the task");
         //}
 
+        // to post a task in the queue
         [HttpPost]
         public IHttpActionResult Post([FromBody] ATask task)
         {
