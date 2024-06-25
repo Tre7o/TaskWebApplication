@@ -47,19 +47,15 @@ namespace TaskWebApp.Controllers
         // to return recently added task
         public ActionResult Pending()
         {
-            try
+            List<ATask> aTasks = taskMSQ.GetAllPendingTasks();
+            if (aTasks.Count > 0)
             {
-                ATask aTask = taskMSQ.ReceiveMessageAsTask();
-                if (aTask != null)
-                {
-                    return View(aTask);
-                }
+                return View(aTasks);
             }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine(ex.Message);
+                return View("NoPending");
             }
-            return View("NoPending");
         }
 
         // to get all tasks from DB

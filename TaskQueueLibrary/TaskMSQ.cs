@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Messaging;
 using TaskWebApplication.Models;
 
@@ -35,6 +36,21 @@ namespace TaskQueueLibrary
             }
         }
 
+        public List<ATask> GetAllPendingTasks()
+        {
+            List<ATask> pendingTasks = new List<ATask>();
+            using (MessageQueue messageQueue = new MessageQueue(queuePath))
+            {
+                messageQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(ATask) });
+                foreach (Message message in messageQueue.GetAllMessages())
+                {
+                    ATask retrievedTask = (ATask)message.Body;
+                    pendingTasks.Add(retrievedTask);
+                }
+            }
+            return pendingTasks;
+        }
+
         public string GetTaskStatus(string taskName)
         {
             using (MessageQueue messageQueue = new MessageQueue(queuePath))
@@ -47,13 +63,9 @@ namespace TaskQueueLibrary
                     {
                         return "Pending";
                     }
-                    else
-                    {
-                        return "Executed";
-                    }
                 }
             }
-            return "No task found";
+            return "Executed";
         }
     }
 }

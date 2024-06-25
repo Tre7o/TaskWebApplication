@@ -1,4 +1,19 @@
-10:44 - Service started successfully
-10:44 - Checking for tasks in the queue.
-10:46 - Processing task: immunize, 5, 12/02/2024 00:00:00
-10:49 - Checking for tasks in the queue.
+15:29 - Checking for tasks in the queue.
+15:34 - TaskSchedulerService stopped.
+15:35 - Service started successfully
+15:35 - Checking for tasks in the queue.
+15:36 - Processing task: make merry, 5, 12/02/2002 00:00:00
+15:40 - Checking for tasks in the queue.
+15:45 - Checking for tasks in the queue.
+15:50 - Checking for tasks in the queue.
+15:53 - Processing task: learn mmls, 14, 01/02/2022 00:00:00
+15:55 - Checking for tasks in the queue.
+16:00 - Checking for tasks in the queue.
+16:05 - Checking for tasks in the queue.
+16:10 - Checking for tasks in the queue.
+16:15 - Checking for tasks in the queue.
+16:20 - Checking for tasks in the queue.
+16:25 - Checking for tasks in the queue.
+16:30 - Checking for tasks in the queue.
+16:35 - Checking for tasks in the queue.
+16:40 - Checking for tasks in the queue.

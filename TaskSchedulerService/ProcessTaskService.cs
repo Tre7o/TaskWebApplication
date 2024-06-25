@@ -33,7 +33,7 @@ namespace TaskSchedulerService
             Log("Service started successfully");
 
             // Set up a timer to trigger the task processing every minute
-            timer = new Timer(ProcessQueue, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
+            timer = new Timer(ProcessQueue, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
 
         }
 
