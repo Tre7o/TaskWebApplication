@@ -19,7 +19,7 @@ using TaskQueueLibrary;
 namespace TaskWebApp.Controllers
 {
     // controller for creating appropriate task view
-    public class TaskController : Controller, IObserver
+    public class TaskController : Controller
     {
         // private static readonly TaskQueue taskQueue = TaskQueue.Instance;
         private static readonly TaskMSQ taskMSQ = new TaskMSQ();
@@ -29,12 +29,12 @@ namespace TaskWebApp.Controllers
             // taskQueue.RegisterObserver(this); // Register as observer when TaskController is created
         }
 
-        public void Update(ATask task)
-        {
-            // Update the task status
-            Task = new ATask();
-            Debug.WriteLine(task.task_status);
-        }
+        //public void Update(ATask task)
+        //{
+        //    // Update the task status
+        //    Task = new ATask();
+        //    Debug.WriteLine(task.task_status);
+        //}
 
         public ATask Task { get; set; }
 
